@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MvcDemoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admins">
+    <Key>
+      <PropertyRef Name="Admins_Id" />
+    </Key>
+    <Property Name="Admins_Id" Type="Int32" Nullable="false" />
+    <Property Name="Admins_Name" Type="String" MaxLength="36" FixedLength="false" Unicode="true" />
+    <Property Name="Admins_Pwd" Type="String" MaxLength="36" FixedLength="false" Unicode="true" />
+    <Property Name="Admins_Time" Type="String" MaxLength="36" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ProductInfo">
+    <Key>
+      <PropertyRef Name="pid" />
+    </Key>
+    <Property Name="pid" Type="Int32" Nullable="false" />
+    <Property Name="pname" Type="String" MaxLength="36" FixedLength="false" Unicode="true" />
+    <Property Name="price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="img" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ptid" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ProductType" Relationship="Self.FK__ProductInf__ptid__3B75D760" FromRole="ProductInfo" ToRole="ProductType" />
+  </EntityType>
+  <EntityType Name="ProductType">
+    <Key>
+      <PropertyRef Name="tid" />
+    </Key>
+    <Property Name="tid" Type="String" Nullable="false" MaxLength="36" Unicode="true" FixedLength="false" />
+    <Property Name="tname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tfin" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ProductInfo" Relationship="Self.FK__ProductInf__ptid__3B75D760" FromRole="ProductType" ToRole="ProductInfo" />
+  </EntityType>
+  <Association Name="FK__ProductInf__ptid__3B75D760">
+    <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+    <End Role="ProductInfo" Type="Self.ProductInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductType">
+        <PropertyRef Name="tid" />
+      </Principal>
+      <Dependent Role="ProductInfo">
+        <PropertyRef Name="ptid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MvcDemoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admins" />
+    <EntitySet Name="ProductInfo" EntityType="Self.ProductInfo" />
+    <EntitySet Name="ProductType" EntityType="Self.ProductType" />
+    <AssociationSet Name="FK__ProductInf__ptid__3B75D760" Association="Self.FK__ProductInf__ptid__3B75D760">
+      <End Role="ProductType" EntitySet="ProductType" />
+      <End Role="ProductInfo" EntitySet="ProductInfo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

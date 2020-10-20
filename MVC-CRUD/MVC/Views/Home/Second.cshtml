@@ -1,0 +1,112 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>子菜单添加</title>
+    <style>
+        *{padding:0;
+          margin:0;
+          font-size:22px;
+        }
+        input{
+            height:28px;
+            width:230px;
+        }
+    </style>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        // 随机数
+        function SecondNumber() {
+            var id = "EJ";
+            for (var i = 0; i < 4; i++) {
+                id += Math.floor(Math.random() * 10);
+            }
+            return id;
+        }
+        $(function () {
+        var id = "EJ";
+        for (var i = 0; i < 4; i++) {
+            id += Math.floor(Math.random() * 10);
+         }
+            var numberid = $("#Etext").val(id);
+            // console.log(id);
+            // 2、加载完毕商品子类别id验证是否存在
+            // 2.1声明一个bool变量 让获取焦点执行一次
+            var ontime = true;
+            // 2.2初始第一次获取焦点
+            if (ontime = true) {
+                $("#Etext2").focus(function () {
+                    var numberid = $("#Etext").val();
+                    // console.log(numberid);
+                //3、发送ajax
+            $.ajax({
+                url: '@Url.Action("SecondVerifyNumber","Home")',
+                type: 'post',
+                data: { 'id': $("#Etext").val()},
+                success: function (res) {
+                    // console.log(res + "Ajax");
+                    if (res=="ok") {
+                        //4、如果ajax返回结果ok，则让ontime为false return 
+                        ontime = false;
+                        return ontime; // 返回ontime
+                    } else {
+                        // 5、如果数据库存在id则重新调用生成随机数
+                        var id = SecondNumber();
+                        console.log(id + "erro");
+                        ontime = true;
+                        return ontime;
+                    }
+                  }
+                })
+              })
+            }
+            // 6、添加按钮
+            $("#addbtn").click(function () {
+                var numId = $("#Etext").val();
+                var numtext = $("#Etext2").val();
+                console.log(numId+"id");
+                console.log(numtext);
+                //6.1获取下拉框的文本值
+                 var selecttext = $("#selectText").find("option:selected").val();
+                console.log(selecttext);
+                // 以 + 分割 截取
+                var index = selecttext.indexOf("+");
+                var index2 = selecttext.substring(index+1)
+                console.log(index2)
+                //alert(selecttext);
+                $.ajax({
+                    url: '@Url.Action("SecondAdd","Home")',
+                    type: 'post',
+                    data: { 'tname': numtext, 'tfin': index2, 'tid': numId},
+                    success: function (res) {
+                        if (res == "ok") {
+                            alert("成功");
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+    <div>
+        <h3>二级菜单</h3>
+        编号：<input type="text" id="Etext" value="" readonly/></br>
+        名称：<input type="text" id="Etext2" value="" /></br>
+        <span>商品主类别</span>
+        <select id="selectText">
+            @foreach (var item in ViewBag.list2)
+            {
+                <option value="@item.tid+@item.tfin">@item.tname</option>    
+            }
+        </select>
+        <button id="addbtn">添加</button>
+    </div>
+</body>
+</html>

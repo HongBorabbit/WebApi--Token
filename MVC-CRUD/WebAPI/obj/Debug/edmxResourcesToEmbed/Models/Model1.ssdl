@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MvcDemoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admins">
+    <Key>
+      <PropertyRef Name="Admins_Id" />
+    </Key>
+    <Property Name="Admins_Id" Type="int" Nullable="false" />
+    <Property Name="Admins_Name" Type="nvarchar" MaxLength="36" />
+    <Property Name="Admins_Pwd" Type="nvarchar" MaxLength="36" />
+    <Property Name="Admins_Time" Type="nvarchar" MaxLength="36" />
+  </EntityType>
+  <EntityType Name="Evaluation">
+    <Key>
+      <PropertyRef Name="cid" />
+    </Key>
+    <Property Name="cid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="content" Type="text" />
+    <Property Name="etime" Type="nvarchar" MaxLength="50" />
+    <Property Name="usid" Type="int" Nullable="false" />
+    <Property Name="pid" Type="nvarchar" MaxLength="16" Nullable="false" />
+    <Property Name="score" Type="nvarchar" MaxLength="26" />
+    <Property Name="img" Type="text" />
+  </EntityType>
+  <EntityType Name="ProductInfo">
+    <Key>
+      <PropertyRef Name="pid" />
+    </Key>
+    <Property Name="pid" Type="nvarchar" MaxLength="16" Nullable="false" />
+    <Property Name="pname" Type="nvarchar" MaxLength="36" Nullable="false" />
+    <Property Name="price" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="img" Type="text" />
+    <Property Name="ptime" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="pdes" Type="nvarchar" MaxLength="36" />
+    <Property Name="content" Type="text" />
+  </EntityType>
+  <EntityType Name="ProductType">
+    <Key>
+      <PropertyRef Name="tid" />
+    </Key>
+    <Property Name="tid" Type="nvarchar" MaxLength="36" Nullable="false" />
+    <Property Name="tname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="tfin" Type="nvarchar" MaxLength="36" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Token">
+    <Key>
+      <PropertyRef Name="token_id" />
+    </Key>
+    <Property Name="token_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="token_text" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="usid" Type="int" Nullable="false" />
+    <Property Name="token_time" Type="datetime" Nullable="false" />
+    <Property Name="IsDel" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="usid" />
+    </Key>
+    <Property Name="usid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="uname" Type="nvarchar" MaxLength="36" />
+    <Property Name="upwd" Type="nvarchar" MaxLength="36" />
+  </EntityType>
+  <Association Name="FK__Evaluation__pid__6477ECF3">
+    <End Role="ProductInfo" Type="Self.ProductInfo" Multiplicity="1" />
+    <End Role="Evaluation" Type="Self.Evaluation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductInfo">
+        <PropertyRef Name="pid" />
+      </Principal>
+      <Dependent Role="Evaluation">
+        <PropertyRef Name="pid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Evaluation__usid__6383C8BA">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Evaluation" Type="Self.Evaluation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="usid" />
+      </Principal>
+      <Dependent Role="Evaluation">
+        <PropertyRef Name="usid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Token__usid__08B54D69">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Token" Type="Self.Token" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="usid" />
+      </Principal>
+      <Dependent Role="Token">
+        <PropertyRef Name="usid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MvcDemoModelStoreContainer">
+    <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Evaluation" EntityType="Self.Evaluation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductInfo" EntityType="Self.ProductInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Token" EntityType="Self.Token" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Evaluation__pid__6477ECF3" Association="Self.FK__Evaluation__pid__6477ECF3">
+      <End Role="ProductInfo" EntitySet="ProductInfo" />
+      <End Role="Evaluation" EntitySet="Evaluation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Evaluation__usid__6383C8BA" Association="Self.FK__Evaluation__usid__6383C8BA">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Evaluation" EntitySet="Evaluation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Token__usid__08B54D69" Association="Self.FK__Token__usid__08B54D69">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Token" EntitySet="Token" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

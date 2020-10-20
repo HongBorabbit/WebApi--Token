@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+    <style>
+        #images {
+            max-width: 150px;
+            max-height: 150px;
+        }
+    </style>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/JS/ajaxfileupload.js"></script>
+    <script src="~/Scripts/JS/html5ImgCompress.min.js"></script>
+    <script>
+        $(function () {
+            //获取文档中 id="image" 的元素：
+            var img = document.querySelector("#image");
+
+            $("#image").change(function () {
+                var file = this.files[0];
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function () {
+                    console.log(reader.result);
+                    $("#images").attr('src', reader.result);
+                }
+            })
+            // AJAX 上传图片
+            $("#btn").click(function () {
+                // var image = $("#image3").val();
+                alert(1);
+                $.ajaxFileUpload({
+                    url: '@Url.Action("NewAdd", "ProductInfo")',
+                    fileElementId: 'file1',
+                    secureuri: false,
+                    type: 'post',
+                    success: function (res) {
+                        console.log(res);
+                    }
+                })
+            })
+        })
+    </script>
+
+</head>
+<body>
+    <div>
+        <form id="form1" method="post" action="@Url.Action("NewSa] -ppves","ProductInfo")" enctype="multipart/form-data">
+            图片1：<input type="file" id="image" name="File" multiple /></br>
+            图片2：<input type="file" id="image2" name="File" multiple /></br>
+            <img src="" id="images" /></br>
+            <input type="submit" value="上传" id="" />
+        </form>
+        <h2>AJAX上传图</h2>
+        <input type="file" id="file1" name="File" />
+        <input type="file" id="image5" name="File" />
+        <button id="btn">上传</button>
+    </div>
+</body>
+</html>

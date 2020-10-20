@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MvcDemoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admins">
+    <Key>
+      <PropertyRef Name="Admins_Id" />
+    </Key>
+    <Property Name="Admins_Id" Type="int" Nullable="false" />
+    <Property Name="Admins_Name" Type="nvarchar" MaxLength="36" />
+    <Property Name="Admins_Pwd" Type="nvarchar" MaxLength="36" />
+    <Property Name="Admins_Time" Type="nvarchar" MaxLength="36" />
+  </EntityType>
+  <EntityType Name="ProductInfo">
+    <Key>
+      <PropertyRef Name="pid" />
+    </Key>
+    <Property Name="pid" Type="int" Nullable="false" />
+    <Property Name="pname" Type="nvarchar" MaxLength="36" />
+    <Property Name="price" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="content" Type="text" />
+    <Property Name="img" Type="text" />
+    <Property Name="ptid" Type="nvarchar" MaxLength="36" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductType">
+    <Key>
+      <PropertyRef Name="tid" />
+    </Key>
+    <Property Name="tid" Type="nvarchar" MaxLength="36" Nullable="false" />
+    <Property Name="tname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="tfin" Type="nvarchar" MaxLength="36" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__ProductInf__ptid__59FA5E80">
+    <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+    <End Role="ProductInfo" Type="Self.ProductInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductType">
+        <PropertyRef Name="tid" />
+      </Principal>
+      <Dependent Role="ProductInfo">
+        <PropertyRef Name="ptid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MvcDemoModelStoreContainer">
+    <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductInfo" EntityType="Self.ProductInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__ProductInf__ptid__59FA5E80" Association="Self.FK__ProductInf__ptid__59FA5E80">
+      <End Role="ProductType" EntitySet="ProductType" />
+      <End Role="ProductInfo" EntitySet="ProductInfo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

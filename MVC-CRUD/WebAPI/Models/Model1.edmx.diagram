@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9b84c4513ed64d2bbcd74b290bd2e1bb" Name="Diagram1">
+        <EntityTypeShape EntityType="MvcDemoModel.Admins" Width="1.5" PointX="0.625" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MvcDemoModel.Evaluation" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MvcDemoModel.ProductInfo" Width="1.5" PointX="6.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MvcDemoModel.ProductType" Width="1.5" PointX="5.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MvcDemoModel.Token" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MvcDemoModel.UserInfo" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="MvcDemoModel.FK__Evaluation__pid__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="MvcDemoModel.FK__Evaluation__usid__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="MvcDemoModel.FK__Token__usid__08B54D69" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

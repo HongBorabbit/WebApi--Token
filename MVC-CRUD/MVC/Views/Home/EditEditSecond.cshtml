@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = null;
+}
+@using MVC.Models
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>修改标签</title>
+</head>
+<body>
+    <div>
+        <h3>二级菜单</h3>
+        编号：<input type="text" id="Etext" value="" readonly /></br>
+        名称：<input type="text" id="Etext2" value="" /></br>
+        <span>商品主类别</span>
+            <select>
+                @foreach (var item in (List<ProductType>)Model)
+                {
+                    <option value="@item.tid">@item.tname</option>
+
+                }
+            </select>
+        <button id="addbtn">添加</button>
+    </div>
+</body>
+</html>

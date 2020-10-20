@@ -1,0 +1,134 @@
+﻿
+@{
+    Layout = null;
+}
+@using MVC.Models;
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+            font-size:20px;
+        }
+        #box {
+            max-width: 980px;
+            max-height: 600px;
+            margin: auto auto;
+            border:1px solid red;
+            overflow:hidden;
+            margin-top:120px;
+        }
+        #Lbox{
+
+            float:left;
+        }
+        #Rbox {
+           
+            float: right;
+        }
+        #IBox {
+            border:1px solid red;
+            float: left;
+            margin: 0px;
+        }
+        a{
+            text-decoration:none;
+        }
+        .define-table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border-left: 1px solid #888;
+            border-top: 1px solid #888;
+        }
+
+            .define-table th, .define-table td {
+                border-right: 1px solid #888;
+                border-bottom: 1px solid #888;
+                padding: 5px 15px;
+            }
+
+            .define-table th {
+                font-weight: bold;
+                background: #ccc;
+            }
+    </style>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function () {
+            $("#btn1").click(function () {
+                location.href = "@Url.Action("AddFist","Home")";
+            })
+            $("#btn2").click(function () {
+                location.href = "@Url.Action("Second", "Home")";
+            })
+        })
+    </script>
+</head>
+<body>
+    <div id="box">
+        <div id="Lbox">
+            <table class="define-table" border="1" cellpadding="1" cellspacing="1">
+                <tr>
+                    <th>编号</th>
+                    <th>名称</th>
+                    <th>价格</th>
+                    <th>介绍</th>
+                    <th>图片</th>
+                    <th>类别</th>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+   
+        <div id="Rbox">
+            <div id="IBox">
+                <table class="define-table" border="1" cellpadding="1" cellspacing="1">
+                    <tbody>
+                        <h3>类别管理</h3>
+                    </tbody>
+                    <tr>
+                        <th>一级编号</th>
+                        <th>一级名称</th>
+                        <th>二级级编号</th>
+                        <th>二级名称</th>
+                        <th>操作</th>
+                    </tr>
+                    @foreach (var item in (List<ProductType>)ViewBag.listCont)
+                    {
+                        <tr>
+                            <td>@item.tid</td>
+                            <td>@item.tname</td>
+                            <td>@item.tfin</td>
+                            <td><a href="@Url.Action("EditEditSecond", new {id=item.tid})">编辑</a> <a href="@Url.Action()">删除</a></td>
+                        </tr>
+                    }
+                </table>
+                <h3>一级菜单</h3>
+                <select>
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.tid">@item.tname</option>
+                    }
+                </select>
+                <button id="btn1">添加一级菜单</button>
+                <h3>二级菜单</h3>
+                <select>
+                    @foreach (var item in ViewBag.list2)
+                    {
+                        <option value="@item.tid">@item.tname</option>
+                    }
+                </select>
+                <button id="btn2">添加二级菜单</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

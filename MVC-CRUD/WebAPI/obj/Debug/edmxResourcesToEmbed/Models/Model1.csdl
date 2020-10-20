@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MvcDemoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admins">
+    <Key>
+      <PropertyRef Name="Admins_Id" />
+    </Key>
+    <Property Name="Admins_Id" Type="Int32" Nullable="false" />
+    <Property Name="Admins_Name" Type="String" MaxLength="36" FixedLength="false" Unicode="true" />
+    <Property Name="Admins_Pwd" Type="String" MaxLength="36" FixedLength="false" Unicode="true" />
+    <Property Name="Admins_Time" Type="String" MaxLength="36" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Evaluation">
+    <Key>
+      <PropertyRef Name="cid" />
+    </Key>
+    <Property Name="cid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="etime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="usid" Type="Int32" Nullable="false" />
+    <Property Name="pid" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="score" Type="String" MaxLength="26" FixedLength="false" Unicode="true" />
+    <Property Name="img" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ProductInfo" Relationship="Self.FK__Evaluation__pid__6477ECF3" FromRole="Evaluation" ToRole="ProductInfo" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Evaluation__usid__6383C8BA" FromRole="Evaluation" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="ProductInfo">
+    <Key>
+      <PropertyRef Name="pid" />
+    </Key>
+    <Property Name="pid" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="pname" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="img" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ptime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="pdes" Type="String" MaxLength="36" FixedLength="false" Unicode="true" />
+    <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Evaluation" Relationship="Self.FK__Evaluation__pid__6477ECF3" FromRole="ProductInfo" ToRole="Evaluation" />
+  </EntityType>
+  <EntityType Name="ProductType">
+    <Key>
+      <PropertyRef Name="tid" />
+    </Key>
+    <Property Name="tid" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tfin" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Token">
+    <Key>
+      <PropertyRef Name="token_id" />
+    </Key>
+    <Property Name="token_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="token_text" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="usid" Type="Int32" Nullable="false" />
+    <Property Name="token_time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsDel" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK__Token__usid__08B54D69" FromRole="Token" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="usid" />
+    </Key>
+    <Property Name="usid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="uname" Type="String" MaxLength="36" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Evaluation" Relationship="Self.FK__Evaluation__usid__6383C8BA" FromRole="UserInfo" ToRole="Evaluation" />
+    <NavigationProperty Name="Token" Relationship="Self.FK__Token__usid__08B54D69" FromRole="UserInfo" ToRole="Token" />
+    <Property Name="upwd" Type="String" MaxLength="36" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK__Evaluation__pid__6477ECF3">
+    <End Role="ProductInfo" Type="Self.ProductInfo" Multiplicity="1" />
+    <End Role="Evaluation" Type="Self.Evaluation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductInfo">
+        <PropertyRef Name="pid" />
+      </Principal>
+      <Dependent Role="Evaluation">
+        <PropertyRef Name="pid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Evaluation__usid__6383C8BA">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Evaluation" Type="Self.Evaluation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="usid" />
+      </Principal>
+      <Dependent Role="Evaluation">
+        <PropertyRef Name="usid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Token__usid__08B54D69">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Token" Type="Self.Token" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="usid" />
+      </Principal>
+      <Dependent Role="Token">
+        <PropertyRef Name="usid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MvcDemoEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admins" />
+    <EntitySet Name="Evaluation" EntityType="Self.Evaluation" />
+    <EntitySet Name="ProductInfo" EntityType="Self.ProductInfo" />
+    <EntitySet Name="ProductType" EntityType="Self.ProductType" />
+    <EntitySet Name="Token" EntityType="Self.Token" />
+    <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
+    <AssociationSet Name="FK__Evaluation__pid__6477ECF3" Association="Self.FK__Evaluation__pid__6477ECF3">
+      <End Role="ProductInfo" EntitySet="ProductInfo" />
+      <End Role="Evaluation" EntitySet="Evaluation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Evaluation__usid__6383C8BA" Association="Self.FK__Evaluation__usid__6383C8BA">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Evaluation" EntitySet="Evaluation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Token__usid__08B54D69" Association="Self.FK__Token__usid__08B54D69">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Token" EntitySet="Token" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
