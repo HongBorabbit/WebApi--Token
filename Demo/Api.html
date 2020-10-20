@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>WebApiDemo</title>
+    <!-- <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  -->
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css"> 
+    <!-- <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script> -->
+    <script src="jquery-3.2.1.js"></script>
+    <!-- <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="JS/ajaxfileupload.js"></script>
+    <script src="JS/html5ImgCompress.min.js"></script>
+   <style>
+        #box{
+           max-width: 1330px;
+            text-align: center;
+            margin: auto auto;
+        }
+        th{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <table class="table table-bordered">
+            <!-- <caption>表格</caption> -->
+            <caption><button type="button" class="btn btn-info" data-toggle="modal" id="Add" data-target="#myModalAdd">添加商品</button></caption>
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>名称</th>
+                    <th>价格</th>
+                    <th>图片</th>
+                    <th>上架时间</th>
+                    <th>标题</th>
+                    <th>详细介绍</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td><button id="fat-btn" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Edit</button>
+                        <button id="fat-btn" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>3</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+     <!-- 添加模态框 -->
+        <div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal-dialog" style="width: 980px;">
+                
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            <!-- 模态框（Modal）标题 -->
+                            添加商品
+                        </h4>
+                    </div>
+                    <!-- 修改商品的主要内容 	在这里添加一些文本-->
+                    <div class="modal-body">
+        
+                        <!-- 添加 -->
+                        <form class="form-horizontal" role="form" enctype="multipart/form-data" id="uploadForm">
+                            <div class="form-group">
+                                <label for="firstname" class="col-sm-2 control-label">商品名称</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="pname" id="firstname" 
+                                           placeholder="请输商品名称">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-2 control-label">商品价格</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="price" id="lastname" 
+                                           placeholder="请输商品价格">
+                                </div>
+                            </div>
+        
+                            <div class="form-group">
+                                    <label for="lastname" class="col-sm-2 control-label">商品图片</label>
+                                    <div class="col-sm-10">
+                                     <input type="file" id="inputfile" name="inputfile" multiple>
+                                     <img src=""  class="img-rounded img" style="width: 180px; height: 180px;margin-top: 4px;">
+                                </div>
+                            </div>
+                        </form>
+        
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default butn" id="addback" data-dismiss="modal">关闭
+                        </button>
+                        <button type="button" class="btn btn-primary butn" id="Add" data-dismiss="modal">
+                            提交更改
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>    
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" style="width: 980px;">
+        
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+                    <!-- 模态框（Modal）标题 -->
+                    修改商品
+				</h4>
+            </div>
+            <!-- 修改商品的主要内容 	在这里添加一些文本-->
+			<div class="modal-body">
+
+                <!-- 添加 -->
+                <form class="form-horizontal" role="form" enctype="multipart/form-data" id="uploadForm">
+                    <div class="form-group">
+                        <label for="firstname" class="col-sm-2 control-label">商品名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="firstname" 
+                                   placeholder="请输商品名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">商品价格</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="lastname" 
+                                   placeholder="请输商品价格">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                            <label for="lastname" class="col-sm-2 control-label">商品图片</label>
+                            <div class="col-sm-10">
+                             <input type="file" id="inputfile" name="inputfile" multiple>
+                            <img src=""  class="img-rounded img" style="width: 180px; height: 180px;margin-top: 4px;">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default butn" id="back" data-dismiss="modal">关闭
+				</button>
+				<button type="button" class="btn btn-primary butn" id="edit" data-dismiss="modal">
+					提交更改
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+    </div>
+
+   <!-- 删除按钮的模态框 -->
+    <!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">删除</button> -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="deleteModalLabel">确认框</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label  class="control-label">确定要删除吗？</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default butn" id="back2" data-dismiss="modal">返回</button>
+                    <button type="button" class="btn btn-primary butn" id="delete" data-dismiss="modal">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    $(function() {
+           $(".butn").bind('click',function(){
+            //    var txt=$(this).text();
+               var id=$(this).attr('id')
+               console.log(id.toString());
+               // 获取当前是确认还是取消
+               switch(id){
+                    case "Add":
+                    // 原生 js
+                    var fm=document.querySelector('form');
+                    var formdata=new FormData(fm);
+                    var h2txt=formdata.get("pname");
+                    var h2txt2=formdata.get("price");
+                    console.log(h2txt+h2txt2);
+                    // for(var i=0;i<fm.elements.length;i++)
+                    // {
+                    //    console.log(fm[i].value);
+                    //     //formdata.append("value",fm[i].value);
+                    // }
+                    var xhr=window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+                    xhr.open("post","http://localhost:2108/api/UserInfo/Upload");
+                    xhr.send(formdata);
+                    xhr.onreadystatechange=function(){
+                        if(xhr.readyState==4 && xhr.status==200){
+                            //console.log(xhr.responseText);
+                            // console.log(xhr.responseXML);
+                            // 将后台返回值转换为json格式
+                            var ht=xhr.responseText;
+                            var jsonht= JSON.parse(ht)
+                           // console.log(jsonht)
+                            for(var i=0;i<jsonht.length;i++)
+                            {
+                                 console.log(jsonht[i]);
+                            }
+                            
+                        }
+                    }
+                    break;
+
+                    case "delete":
+
+               }
+            })
+           //单图添加选择图片预览效果
+           $("#inputfile").change(function(){
+               var file=this.files[0];
+               var reader = new FileReader();
+               reader.readAsDataURL(file);
+               reader.onload = function () {
+              console.log(reader.result);
+             $(".img").attr('src', reader.result);
+            }
+         })
+        
+  });
+
+</script>

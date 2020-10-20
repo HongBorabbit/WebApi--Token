@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="jquery-3.5.0.min.js"></script>
+    <style>
+        #box>img{
+            max-width: 45px;
+            max-height: 45px;
+        }
+      #box2{
+        max-width: 550px;
+        max-height: 470px;
+      }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+    
+        $(function(){
+            $("#myButton4").click(function(){
+            var val=$("#Q").val();
+            var regex=/[1-9][0-9]{4,14}/;
+            if (regex.test(val)) {
+            var a="http://q1.qlogo.cn/g?b=qq&nk="+val+"&s=640".toString();
+            //var myapi=a.indexOf("nk=");
+            console.log(a)
+            $("#box").append("<img src="+a+" id=image>");
+            return true;
+            } else {
+                console.log("失败");
+                $("#image").val="";
+                return false;
+              }            
+            })
+            //提交评论AJax
+           $.ajax({
+               type:"POST",
+               url:'',
+               data:{}
+           })
+        })
+    </script>
+
+    <div class="container">
+       <div class="row">
+  <div style="padding: 100px 100px 10px;" id="box2">
+    <p>填入QQ号码，会显示QQ头像,否则显示默认</p>
+    <form class="bs-example bs-example-form" role="form">
+        <div class="input-group">
+            <span class="input-group-addon">QQ</span>
+            <input type="text" class="form-control" placeholder="请输入你的QQ号码!" id="Q">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">姓名</span>
+            <input type="text" class="form-control" placeholder="昵称：例如可爱兔子">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <input type="text" class="form-control">
+            <span class="input-group-addon">.00</span>
+        </div>
+    </form>
+       <!-- 提交按钮 -->
+  <div id="box"></div>
+  <button type="button" class="btn btn-primary" id="myButton4" 
+   	data-complete-text="Loading finished">提交
+   </button>
+</div>   
+     </div>
+    </div>
+</body>
+</html>

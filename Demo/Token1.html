@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        li{
+            border: 2px solid red;
+            width: 50px;
+            height: 50px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    姓名<input type="text" name="uname" id="uname">
+    密码<input type="text" name="upwd" id="upwd">
+    <input type="button" name="buton" id="btn" value="点我发送">
+    
+</body>
+<script src="jquery-3.2.1.js"></script>
+<script>
+ $(function(){
+     $("#btn").click(function(){
+         $.ajax({
+             url:'http://localhost:2108/api/Userinfo/login',
+             type:'post',
+             data:{'uname':$("#uname").val(),'upwd':$("#upwd").val()},
+             success:function(res){
+                 if(res!=null)
+                 {
+                     //console.log(res);
+                     // key value
+                     var p2=localStorage.setItem("res",res);
+                     console.log(p2+"这是p2的值");
+                     location.href="Token2.html";
+                 }
+             }
+
+         })
+     })
+ })
+</script>
+</html>

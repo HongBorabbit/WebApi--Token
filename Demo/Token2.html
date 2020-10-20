@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>token验证后传递的值</title>
+</head>
+<body>
+    <button type="button" id="btn">按下测试授权</button>
+</body>
+<script src="jquery-3.2.1.js"></script>
+<script>
+    var s2=localStorage.getItem("res");
+    console.log(s2+"   这是页面2的token");
+    $("#btn").click(function(){
+        $.ajax({
+            url:'http://localhost:2108/api/Css/cs',
+            type:'get',
+            beforeSend: function(request) {
+              request.setRequestHeader("Authorization","basic "+ s2);
+              },
+            success:function(res){
+                console.log(res+"res成功");
+            }
+        })
+    })
+</script>
+</html>
